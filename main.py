@@ -1,41 +1,27 @@
 import random
 
-estado = True
+resposta = 0
 
-while estado:
-    input('Pense em um numero e depois aperte Enter ')
+while (resposta == 0):
+    input('Pense em um numero e depois aperte Enter')
 
     tentativa = random.randint(0,10)
 
-    resultado = int(input(f'Seu numero e {tentativa}? (0 - Não / 1 - Sim): '))
-
-    if resultado:
-        print('Adivinhei.')
-        estado = False
+    resposta = int(input(f'Seu numero e {tentativa}? (0 - Não / 1 - Sim): '))
+    
+    if (resposta == 1):
+        print("Acertei!")
     else:
-        resultado = int(input(f'Seu numero e maior ou menor que {tentativa}? (0 - Menor / 1 - Maior):' ))
-        
-        if resultado:
-            tentativa = random.randint(tentativa+1,10)
+        while (resposta == 0):
+            maior_ou_menor = int(input("Seu numero é maior ou menor? (0 - Menor/ 1 - Maior)"))
 
-            resultado = int(input(f'Seu numero e {tentativa}? (0 - Não / 1 - Sim): '))
+            if (maior_ou_menor == 0):
+                tentativa = random.randint(0,tentativa)
 
-            while not resultado:
-                tentativa = random.randint(tentativa+1,10)
-
-                resultado = int(input(f'Seu numero e {tentativa}? (0 - Não / 1 - Sim): '))
-
-            print('Demorou mas eu advinhei rsrsrs')
-            estado = False    
-        else:
-            tentativa = random.randint(0,tentativa-1)
-
-            resultado = int(input(f'Seu numero e {tentativa}? (0 - Não / 1 - Sim): '))
-
-            while not resultado:
-                tentativa = random.randint(0,tentativa-1)
-
-                resultado = int(input(f'Seu numero e {tentativa}? (0 - Não / 1 - Sim): '))
-
-            print('Demorou mas eu advinhei rsrsrs')
-            estado = False
+            else:
+                tentativa = random.randint(tentativa, 10)
+ 
+            resposta = int(input(f'Seu numero e {tentativa}? (0 - Não / 1 - Sim): '))
+    
+            if (resposta == 1):
+                print("Acertei!")

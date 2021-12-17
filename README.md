@@ -12,6 +12,6 @@ It's a simple game, you choose a number between 0 and 10 and press ENTER, the al
 - [x] Refactor the code
 - [x] Guess the number
 - [x] Don't repeat tries
-- [] Try the next number according to user answer
+- [ ] Try the next number according to user answer
 
 **Thanks for read me!**

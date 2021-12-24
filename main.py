@@ -6,7 +6,7 @@ maior = 10
 menor = 1
 
 while resposta == 0:
-    input('Pense em um numero de 1 a 10 e depois aperte Enter')
+    input(f'Pense em um numero de {menor} a {maior} e depois aperte Enter')
 
     tentativa = random.randint(menor,maior)
     

@@ -4,7 +4,7 @@ This is a project in python to learn algorithms. I'm trying to do a algorithm th
 
 ## How it works
 
-It's a simple game, you choose a number between 1 and 10 and press ENTER, the algorithm gonna try to guess your number.
+It's a simple game, you choose a number between 1 and 10 and press ENTER, the algorithm gonna try to guess your number. You can also play with another range of numbers like 1 to 100 and etc.
 
 ## To Do
 

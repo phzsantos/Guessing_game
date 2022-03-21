@@ -18,8 +18,7 @@ It's a simple game, you choose a number between 1 and 10 and press ENTER, the al
 - [x] Don't let the user choose a invalid lower or higher option if the current try -1 or +1 is equal to last try
 - [x] Make the code scalable
 - [x] Gamemode (standard 1-10 or custom)
-- [ ] Create functions
-- [ ] Make the code modular
+- [x] Create functions
 - [x] When the game ends ask if the user want to play again
 - [ ] Translate the code to english
 

@@ -1,25 +1,33 @@
 import random
 import os
 
+def Clear():
+    if os.name == 'nt':
+        clear = "cls"
+    else:
+        clear = "clear"
+
+    os.system(clear)
+
 def Game():
     resposta = 0
     tentativas_erradas = []
     menor = 1
 
-    os.system("clear")
+    Clear()
 
     print("1 - Modo padrao 1 a 10")
     print("2 - Modo Personalizado 1 a ?")
     modo = int(input("Como voce quer jogar este game? "))
 
-    os.system("clear")
+    Clear()
 
     if (modo == 1):
         maior = 10
     elif (modo == 2):
         maior = int(input("Qual vai ser o maior numero possivel? "))
 
-        os.system("clear")
+        Clear()
 
         if (maior <= menor):
             resposta = 1
@@ -82,7 +90,7 @@ def Game():
     if (play_again):
         Game()
     else:
-        os.system("clear")
+        Clear()
         print("Nos vemos na proxima ^^")
 
 Game()

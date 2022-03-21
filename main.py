@@ -1,9 +1,29 @@
 import random
+import os
 
 resposta = 0
 tentativas_erradas = []
-maior = 10
 menor = 1
+
+print("1 - Modo padrao 1 a 10")
+print("2 - Modo Personalizado 1 a ?")
+modo = int(input("Como voce quer jogar este game? "))
+
+os.system("clear")
+
+if (modo == 1):
+    maior = 10
+elif (modo == 2):
+    maior = int(input("Qual vai ser o maior numero possivel? "))
+
+    os.system("clear")
+
+    if (maior <= menor):
+        resposta = 1
+        print("Programa finalizado. So seram permitidos numeros maiores que 1")
+else:
+    resposta = 1
+    print("Programa finalizado. Essa opcao nao existe.")
 
 while resposta == 0:
     input(f'Pense em um numero de {menor} a {maior} e depois aperte Enter')

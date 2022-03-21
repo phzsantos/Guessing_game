@@ -1,75 +1,88 @@
 import random
 import os
 
-resposta = 0
-tentativas_erradas = []
-menor = 1
-
-print("1 - Modo padrao 1 a 10")
-print("2 - Modo Personalizado 1 a ?")
-modo = int(input("Como voce quer jogar este game? "))
-
-os.system("clear")
-
-if (modo == 1):
-    maior = 10
-elif (modo == 2):
-    maior = int(input("Qual vai ser o maior numero possivel? "))
+def Game():
+    resposta = 0
+    tentativas_erradas = []
+    menor = 1
 
     os.system("clear")
 
-    if (maior <= menor):
-        resposta = 1
-        print("Programa finalizado. So seram permitidos numeros maiores que 1")
-else:
-    resposta = 1
-    print("Programa finalizado. Essa opcao nao existe.")
+    print("1 - Modo padrao 1 a 10")
+    print("2 - Modo Personalizado 1 a ?")
+    modo = int(input("Como voce quer jogar este game? "))
 
-while resposta == 0:
-    input(f'Pense em um numero de {menor} a {maior} e depois aperte Enter')
+    os.system("clear")
 
-    tentativa = random.randint(menor,maior)
-    
-    resposta = int(input(f'Seu numero e {tentativa}? (0 - Não / 1 - Sim): '))
-    
-    if resposta == 1:
-        print("Acertei!")
+    if (modo == 1):
+        maior = 10
+    elif (modo == 2):
+        maior = int(input("Qual vai ser o maior numero possivel? "))
+
+        os.system("clear")
+
+        if (maior <= menor):
+            resposta = 1
+            print("Programa finalizado. So seram permitidos numeros maiores que 1")
     else:
-        while resposta == 0:
-            tentativas_erradas.append(tentativa)
-            tentativa_anterior = tentativa
-            
-            if tentativa != menor                    \
-            and tentativa != maior                   \
-            and tentativa-1 not in tentativas_erradas\
-            and tentativa+1 not in tentativas_erradas:
-                maior_ou_menor = int(input("Seu numero é maior ou menor? (0 - Menor/ 1 - Maior): ")) 
-            elif tentativa == menor             \
-            or tentativa-1 in tentativas_erradas:
-                maior_ou_menor = 1
-            else:
-                maior_ou_menor = 0
+        resposta = 1
+        print("Programa finalizado. Essa opcao nao existe.")
 
-            if maior_ou_menor == 0:
-                for i in range(tentativa,maior+1):
-                    if i not in tentativas_erradas:
-                        tentativas_erradas.append(i)
+    while resposta == 0:
+        input(f'Pense em um numero de {menor} a {maior} e depois aperte Enter')
 
-                while tentativa in tentativas_erradas:
-                    tentativa = random.randint(menor,tentativa_anterior-1)
-            else:
-                for i in range(tentativa,menor-1,-1):
-                    if i not in tentativas_erradas:
-                        tentativas_erradas.append(i)
+        tentativa = random.randint(menor,maior)
+        
+        resposta = int(input(f'Seu numero e {tentativa}? (0 - Não / 1 - Sim): '))
+        
+        if resposta == 1:
+            print("Acertei!")
+        else:
+            while resposta == 0:
+                tentativas_erradas.append(tentativa)
+                tentativa_anterior = tentativa
+                
+                if tentativa != menor                    \
+                and tentativa != maior                   \
+                and tentativa-1 not in tentativas_erradas\
+                and tentativa+1 not in tentativas_erradas:
+                    maior_ou_menor = int(input("Seu numero é maior ou menor? (0 - Menor/ 1 - Maior): ")) 
+                elif tentativa == menor             \
+                or tentativa-1 in tentativas_erradas:
+                    maior_ou_menor = 1
+                else:
+                    maior_ou_menor = 0
 
-                while tentativa in tentativas_erradas:
-                    tentativa = random.randint(tentativa_anterior+1, maior)
-            
-            if len(tentativas_erradas) == maior-1:
-                print(f'Então seu numero é {tentativa}!')
-                resposta = 1
-            else:
-                resposta = int(input(f'Seu numero e {tentativa}? (0 - Não / 1 - Sim): '))
-    
-                if resposta == 1:
-                    print("Acertei!")
+                if maior_ou_menor == 0:
+                    for i in range(tentativa,maior+1):
+                        if i not in tentativas_erradas:
+                            tentativas_erradas.append(i)
+
+                    while tentativa in tentativas_erradas:
+                        tentativa = random.randint(menor,tentativa_anterior-1)
+                else:
+                    for i in range(tentativa,menor-1,-1):
+                        if i not in tentativas_erradas:
+                            tentativas_erradas.append(i)
+
+                    while tentativa in tentativas_erradas:
+                        tentativa = random.randint(tentativa_anterior+1, maior)
+                
+                if len(tentativas_erradas) == maior-1:
+                    print(f'Então seu numero é {tentativa}!')
+                    resposta = 1
+                else:
+                    resposta = int(input(f'Seu numero e {tentativa}? (0 - Não / 1 - Sim): '))
+        
+                    if resposta == 1:
+                        print("Acertei!")
+
+    play_again = int(input("Deseja jogar novamente? (0 - Não / 1 - Sim): "))
+
+    if (play_again):
+        Game()
+    else:
+        os.system("clear")
+        print("Nos vemos na proxima ^^")
+
+Game()

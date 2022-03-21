@@ -20,7 +20,7 @@ It's a simple game, you choose a number between 1 and 10 and press ENTER, the al
 - [x] Gamemode (standard 1-10 or custom)
 - [ ] Create functions
 - [ ] Make the code modular
-- [ ] When the game ends ask if the user want to play again
+- [x] When the game ends ask if the user want to play again
 - [ ] Translate the code to english
 
 **Thanks for read me!**

@@ -22,5 +22,6 @@ It's a simple game, you choose a number between 1 and 10 and press ENTER, the al
 - [x] When the game ends ask if the user want to play again
 - [ ] Translate the code to english
 - [x] System to guess the number according to previous plays 
+- [x] Error handling
 
 **Thanks for read me!**

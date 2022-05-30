@@ -11,9 +11,6 @@ def Clear():
     os.system(clear)
     
 def IncrementaMaioresOuMenores(numero, maiores, menores, config):    
-    print(maiores)
-    print(menores)
-    
     if numero >= 5:
         maiores += 1
     else:
@@ -32,22 +29,19 @@ def Game():
         with open('config.json', 'r') as file:
             config_json = file.read()
             config = json.loads(config_json)
-            maiores = config['Maiores']
-            menores = config['Menores']
+            
     except IOError:
         config = {'Maiores': 0, 'Menores': 0}
-        
         config_json = json.dumps(config, indent=True)
-        
-        maiores = config['Maiores']
-        menores = config['Menores']
         
         with open('config.json', 'x') as file:
             file.write(config_json)
     
+    menor = 1
     resposta = 0
     tentativas_erradas = []
-    menor = 1
+    maiores = config['Maiores']
+    menores = config['Menores']
 
     Clear()
 
@@ -57,14 +51,14 @@ def Game():
 
     Clear()
 
-    if (modo == 1):
+    if modo == 1:
         maior = 10
-    elif (modo == 2):
+    elif modo == 2:
         maior = int(input("Qual vai ser o maior numero possivel? "))
 
         Clear()
 
-        if (maior <= menor):
+        if maior <= menor:
             resposta = 1
             print("Programa finalizado. So seram permitidos numeros maiores que 1")
     else:
@@ -73,9 +67,6 @@ def Game():
 
     while resposta == 0:
         input(f'Pense em um numero de {menor} a {maior} e depois aperte Enter')
-        
-        print(maiores)
-        print(menores)
         
         if maiores > menores:
             tentativa = random.randint(5,maior)
@@ -88,6 +79,7 @@ def Game():
         
         if resposta == 1:
             print("Acertei!")
+            
             if modo == 1:
                 IncrementaMaioresOuMenores(tentativa, maiores, menores, config)
         else:
@@ -124,6 +116,7 @@ def Game():
                 if len(tentativas_erradas) == maior-1:
                     print(f'Então seu numero é {tentativa}!')
                     resposta = 1
+                    
                     if modo == 1:
                         IncrementaMaioresOuMenores(tentativa, maiores, menores, config)
                 else:
@@ -137,7 +130,7 @@ def Game():
 
     play_again = int(input("Deseja jogar novamente? (0 - Não / 1 - Sim): "))
 
-    if (play_again):
+    if play_again:
         Game()
     else:
         Clear()

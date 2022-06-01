@@ -29,11 +29,11 @@ def PerguntaNumero(tentativa):
         resposta = int(input(f'Seu numero e {tentativa}? (0 - Não / 1 - Sim): '))
     except ValueError:
         print("\033[31mERRO:\033[m\nUSE APENAS NUMEROS PARA RESPONDER A PERGUNTA!")
-        resposta = int(input(f'Seu numero e {tentativa}? (0 - Não / 1 - Sim): '))
+        resposta = PerguntaNumero(tentativa)
     
     while resposta != 0 and resposta != 1:
         print("\033[31mERRO:\033[m\nRESPONDA COM APENAS 0 OU 1!")
-        resposta = PerguntaNumero()
+        resposta = PerguntaNumero(tentativa)
             
     return resposta
 
@@ -42,11 +42,11 @@ def PerguntaMaiorOuMenor(tentativa):
         maior_ou_menor = int(input(f"Seu numero é maior ou menor que {tentativa}? (0 - Menor/ 1 - Maior): "))
     except ValueError:
         print("\033[31mERRO:\033[m\nUSE APENAS NUMEROS PARA RESPONDER A PERGUNTA!")
-        maior_ou_menor = int(input(f"Seu numero é maior ou menor que {tentativa}? (0 - Menor/ 1 - Maior): "))
+        maior_ou_menor = PerguntaMaiorOuMenor(tentativa)
     
     while maior_ou_menor != 0 and maior_ou_menor != 1:
         print("\033[31mERRO:\033[m\nRESPONDA COM APENAS 0 OU 1!")
-        maior_ou_menor = PerguntaMaiorOuMenor()
+        maior_ou_menor = PerguntaMaiorOuMenor(tentativa)
         
     return maior_ou_menor
 
@@ -55,7 +55,7 @@ def PerguntaMaior(menor):
         maior = int(input("Qual vai ser o maior numero possivel (sendo 1 o menor numero)? "))
     except ValueError:
         print("\033[31mERRO:\033[m\nUSE APENAS NUMEROS PARA RESPONDER A PERGUNTA!")
-        maior = int(input("Qual vai ser o maior numero possivel (sendo 1 o menor numero)? "))
+        maior = PerguntaMaior(menor)
     
     while maior <= menor:
         print("\033[31mERRO:\033[m\nSO SERAM PERMITIDOS VALORES MAIORES QUE O PROPRIO 1!")
@@ -70,13 +70,11 @@ def PerguntaModo():
         modo = int(input("Como voce quer jogar este game (1 ou 2)? "))
     except ValueError:
         print("\033[31mERRO:\033[m\nUSE APENAS NUMEROS PARA ESCOLHER O MODO DE JOGO")
-        modo = int(input("Como voce quer jogar este game (1 ou 2)? "))
+        modo = PerguntaModo()
 
     while modo != 1 and modo != 2:
         print("\033[31mERRO:\033[m\nRESPONDA COM APENAS 1 OU 2!")
         modo = PerguntaModo()
-    
-    Clear()
     
     return modo
 
@@ -85,7 +83,7 @@ def PlayAgain():
         play_again = int(input("Deseja jogar novamente? (0 - Não / 1 - Sim): "))
     except ValueError:
         print("\033[31mERRO:\033[m\nUSE APENAS NUMEROS PARA RESPONDER A PERGUNTA!")
-        play_again = int(input("Deseja jogar novamente? (0 - Não / 1 - Sim): "))
+        play_again = PlayAgain()
     
     while play_again != 0 and play_again != 1:
         print("\033[31mERRO:\033[m\nRESPONDA COM APENAS 0 OU 1!")
@@ -120,7 +118,8 @@ def Game():
     menores = config['Menores']
 
     modo = PerguntaModo()
-
+    Clear()
+    
     if modo == 1:
         maior = 10
     else:
@@ -191,5 +190,3 @@ def Game():
                             IncrementaMaioresOuMenores(tentativa, maiores, menores, config)
 
     PlayAgain()
-
-Game()

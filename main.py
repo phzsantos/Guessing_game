@@ -2,15 +2,12 @@ import random
 import os
 import json
 
-def Clear():
-    if os.name == 'nt':
-        clear = "cls"
-    else:
-        clear = "clear"
-
+def clear():
+    clear = "cls" if os.name == 'nt' else "clear"
     os.system(clear)
     
-def IncrementaMaioresOuMenores(numero, maiores, menores, config):    
+
+def incrementa_maiores_ou_menores(numero, maiores, menores, config):    
     if numero >= 5:
         maiores += 1
     else:
@@ -24,81 +21,83 @@ def IncrementaMaioresOuMenores(numero, maiores, menores, config):
     with open('config.json', 'w+') as file:
         file.write(config_json)
 
-def PerguntaNumero(tentativa):
+
+def pergunta_numero(tentativa):
     try:
         resposta = int(input(f'Seu numero e {tentativa}? (0 - Não / 1 - Sim): '))
     except ValueError:
         print("\033[31mERRO:\033[m\nUSE APENAS NUMEROS PARA RESPONDER A PERGUNTA!")
-        resposta = PerguntaNumero(tentativa)
+        resposta = pergunta_numero(tentativa)
     
     while resposta != 0 and resposta != 1:
         print("\033[31mERRO:\033[m\nRESPONDA COM APENAS 0 OU 1!")
-        resposta = PerguntaNumero(tentativa)
+        resposta = pergunta_numero(tentativa)
             
     return resposta
 
-def PerguntaMaiorOuMenor(tentativa):
+
+def pergunta_maior_ou_menor(tentativa):
     try:
         maior_ou_menor = int(input(f"Seu numero é maior ou menor que {tentativa}? (0 - Menor/ 1 - Maior): "))
     except ValueError:
         print("\033[31mERRO:\033[m\nUSE APENAS NUMEROS PARA RESPONDER A PERGUNTA!")
-        maior_ou_menor = PerguntaMaiorOuMenor(tentativa)
+        maior_ou_menor = pergunta_maior_ou_menor(tentativa)
     
     while maior_ou_menor != 0 and maior_ou_menor != 1:
         print("\033[31mERRO:\033[m\nRESPONDA COM APENAS 0 OU 1!")
-        maior_ou_menor = PerguntaMaiorOuMenor(tentativa)
+        maior_ou_menor = pergunta_maior_ou_menor(tentativa)
         
     return maior_ou_menor
 
-def PerguntaMaior(menor):
+
+def pergunta_maior(menor):
     try:
         maior = int(input("Qual vai ser o maior numero possivel (sendo 1 o menor numero)? "))
     except ValueError:
         print("\033[31mERRO:\033[m\nUSE APENAS NUMEROS PARA RESPONDER A PERGUNTA!")
-        maior = PerguntaMaior(menor)
+        maior = pergunta_maior(menor)
     
     while maior <= menor:
         print("\033[31mERRO:\033[m\nSO SERAM PERMITIDOS VALORES MAIORES QUE O PROPRIO 1!")
-        maior = PerguntaMaior(menor)
+        maior = pergunta_maior(menor)
     
     return maior
 
-def PerguntaModo():
+
+def pergunta_modo():
     try:
         print("1 - Modo padrao 1 a 10")
         print("2 - Modo Personalizado 1 a ?")
         modo = int(input("Como voce quer jogar este game (1 ou 2)? "))
     except ValueError:
         print("\033[31mERRO:\033[m\nUSE APENAS NUMEROS PARA ESCOLHER O MODO DE JOGO")
-        modo = PerguntaModo()
+        modo = pergunta_modo()
 
     while modo != 1 and modo != 2:
         print("\033[31mERRO:\033[m\nRESPONDA COM APENAS 1 OU 2!")
-        modo = PerguntaModo()
+        modo = pergunta_modo()
     
     return modo
 
-def PlayAgain():
+
+def play_again():
     try:
         play_again = int(input("Deseja jogar novamente? (0 - Não / 1 - Sim): "))
     except ValueError:
         print("\033[31mERRO:\033[m\nUSE APENAS NUMEROS PARA RESPONDER A PERGUNTA!")
-        play_again = PlayAgain()
+        play_again = play_again()
     
     while play_again != 0 and play_again != 1:
         print("\033[31mERRO:\033[m\nRESPONDA COM APENAS 0 OU 1!")
-        play_again = PlayAgain()
+        play_again = play_again()
     
-    if play_again:
-        Game()
-    else:
-        Clear()
-        print("Nos vemos na proxima ^^")
-        
+    game() if play_again else clear()
+
     return 0
 
-def Game():
-    Clear()
+
+def game():
+    clear()
     
     try:
         with open('config.json', 'r') as file:
@@ -117,16 +116,13 @@ def Game():
     maiores = config['Maiores']
     menores = config['Menores']
 
-    modo = PerguntaModo()
-    Clear()
+    modo = pergunta_modo()
+    clear()
     
-    if modo == 1:
-        maior = 10
-    else:
-        maior = PerguntaMaior(menor)
+    maior = 10 if modo == 1 else pergunta_maior(menor)
 
     while resposta == 0:
-        Clear()
+        clear()
         input(f'\033[31mPENSE EM UM NUMERO NO INTERVALO DE {menor} E {maior} E DEPOIS APERTE ENTER\033[m')
         
         if maiores > menores and modo == 1:
@@ -136,13 +132,13 @@ def Game():
         else:
             tentativa = random.randint(menor,maior)
         
-        resposta = PerguntaNumero(tentativa)
+        resposta = pergunta_numero(tentativa)
         
         if resposta == 1:
             print("Acertei!")
             
             if modo == 1:
-                IncrementaMaioresOuMenores(tentativa, maiores, menores, config)
+                incrementa_maiores_ou_menores(tentativa, maiores, menores, config)
         else:
             while resposta == 0:
                 tentativas_erradas.append(tentativa)
@@ -152,7 +148,7 @@ def Game():
                 and tentativa != maior                   \
                 and tentativa-1 not in tentativas_erradas\
                 and tentativa+1 not in tentativas_erradas:
-                    maior_ou_menor = PerguntaMaiorOuMenor(tentativa) 
+                    maior_ou_menor = pergunta_maior_ou_menor(tentativa) 
                 elif tentativa == menor             \
                 or tentativa-1 in tentativas_erradas:
                     maior_ou_menor = 1
@@ -179,14 +175,14 @@ def Game():
                     resposta = 1
                     
                     if modo == 1:
-                        IncrementaMaioresOuMenores(tentativa, maiores, menores, config)
+                        incrementa_maiores_ou_menores(tentativa, maiores, menores, config)
                 else:
-                    resposta = PerguntaNumero(tentativa)
+                    resposta = pergunta_numero(tentativa)
         
                     if resposta == 1:
                         print("Acertei!")
                         
                         if modo == 1:
-                            IncrementaMaioresOuMenores(tentativa, maiores, menores, config)
+                            incrementa_maiores_ou_menores(tentativa, maiores, menores, config)
 
-    PlayAgain()
+    play_again()

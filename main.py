@@ -121,7 +121,7 @@ def game():
     
     maior = 10 if modo == 1 else pergunta_maior(menor)
 
-    while resposta == 0:
+    while not resposta:
         clear()
         input(f'\033[31mPENSE EM UM NUMERO NO INTERVALO DE {menor} E {maior} E DEPOIS APERTE ENTER\033[m')
         
@@ -134,13 +134,10 @@ def game():
         
         resposta = pergunta_numero(tentativa)
         
-        if resposta == 1:
+        if resposta:
             print("Acertei!")
-            
-            if modo == 1:
-                incrementa_maiores_ou_menores(tentativa, maiores, menores, config)
         else:
-            while resposta == 0:
+            while not resposta:
                 tentativas_erradas.append(tentativa)
                 tentativa_anterior = tentativa
                 
@@ -155,34 +152,24 @@ def game():
                 else:
                     maior_ou_menor = 0
 
-                if maior_ou_menor == 0:
-                    for i in range(tentativa,maior+1):
-                        if i not in tentativas_erradas:
-                            tentativas_erradas.append(i)
+                if not maior_ou_menor:
+                    [tentativas_erradas.append(i) for i in range(tentativa,maior+1) if i not in tentativas_erradas]
 
-                    while tentativa in tentativas_erradas:
-                        tentativa = random.randint(menor,tentativa_anterior-1)
+                    while tentativa in tentativas_erradas: tentativa = random.randint(menor,tentativa_anterior-1)
                 else:
-                    for i in range(tentativa,menor-1,-1):
-                        if i not in tentativas_erradas:
-                            tentativas_erradas.append(i)
+                    [tentativas_erradas.append(i) for i in range(tentativa,menor-1,-1) if i not in tentativas_erradas]
 
-                    while tentativa in tentativas_erradas:
-                        tentativa = random.randint(tentativa_anterior+1, maior)
+                    while tentativa in tentativas_erradas: tentativa = random.randint(tentativa_anterior+1, maior)
                 
                 if len(tentativas_erradas) == maior-1:
                     print(f'Então seu numero é {tentativa}!')
                     resposta = 1
-                    
-                    if modo == 1:
-                        incrementa_maiores_ou_menores(tentativa, maiores, menores, config)
                 else:
                     resposta = pergunta_numero(tentativa)
-        
-                    if resposta == 1:
+                    if resposta:
                         print("Acertei!")
-                        
-                        if modo == 1:
-                            incrementa_maiores_ou_menores(tentativa, maiores, menores, config)
+
+    if modo == 1:
+        incrementa_maiores_ou_menores(tentativa, maiores, menores, config)
 
     play_again()
